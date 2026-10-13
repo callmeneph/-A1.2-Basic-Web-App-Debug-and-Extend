@@ -6,6 +6,7 @@ import ReviewsView from '../views/ReviewsView.vue'
 import AdminView from '../views/AdminView.vue'
 import UnauthorizedView from '../views/UnauthorizedView.vue'
 import FirebaseAuthView from '../views/FirebaseAuthView.vue'
+import DataTablesView from '../views/DataTablesView.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -17,6 +18,11 @@ const routes = [
     name: 'Reviews',
     component: ReviewsView,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/tables',
+    name: 'DataTables',
+    component: DataTablesView
   },
   {
     path: '/admin',
