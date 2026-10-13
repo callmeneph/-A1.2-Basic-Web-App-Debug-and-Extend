@@ -1,4 +1,3 @@
-
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
@@ -6,22 +5,24 @@ import RegisterView from '../views/RegisterView.vue'
 import ReviewsView from '../views/ReviewsView.vue'
 import AdminView from '../views/AdminView.vue'
 import UnauthorizedView from '../views/UnauthorizedView.vue'
+import FirebaseAuthView from '../views/FirebaseAuthView.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/register', name: 'Register', component: RegisterView },
+  { path: '/cloud-login', name: 'CloudLogin', component: FirebaseAuthView },
   {
     path: '/reviews',
     name: 'Reviews',
     component: ReviewsView,
-    meta: { requiresAuth: true } // this one for OUR Logged-in members & admins
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin',
     name: 'Admin',
     component: AdminView,
-    meta: { requiresAuth: true, roles: ['admin'] } // only for my beloved admin role
+    meta: { requiresAuth: true, roles: ['admin'] }
   },
   { path: '/unauthorized', name: 'Unauthorized', component: UnauthorizedView }
 ]
@@ -31,7 +32,7 @@ const router = createRouter({
   routes
 })
 
-// Navigation Guard for RBAC
+// Navigation Guard
 router.beforeEach((to, from, next) => {
   const sessionUser = JSON.parse(localStorage.getItem('ecoloop_current_user') || 'null')
 

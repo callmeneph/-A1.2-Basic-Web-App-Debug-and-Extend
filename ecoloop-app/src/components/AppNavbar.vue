@@ -13,6 +13,10 @@
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/reviews">Hub Reviews</router-link>
           </li>
+          <!-- Firebase Auth Link -->
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/cloud-login">Firebase Auth</router-link>
+          </li>
           <!-- Show Admin link only if logged-in user is admin -->
           <li v-if="currentUser?.role === 'admin'" class="nav-item">
             <router-link class="nav-link text-warning fw-bold" to="/admin">Admin Portal</router-link>
