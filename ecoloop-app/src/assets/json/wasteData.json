@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Soft Plastics (Bread bags, bubble wrap)",
+    "category": "Plastics",
+    "dropOffLocation": "Eco Loop Carlton Depot",
+    "accepted": true,
+    "carbonSavingKg": 1.2
+  },
+  {
+    "id": 2,
+    "name": "Lithium & Alkaline Batteries",
+    "category": "E-Waste",
+    "dropOffLocation": "Melbourne City Central Hub",
+    "accepted": true,
+    "carbonSavingKg": 3.5
+  },
+  {
+    "id": 3,
+    "name": "Food Scraps & Coffee Grounds",
+    "category": "Organics",
+    "dropOffLocation": "Inner-North Community Compost",
+    "accepted": true,
+    "carbonSavingKg": 2.1
+  },
+  {
+    "id": 4,
+    "name": "Broken Toasters & Small Appliances",
+    "category": "Repair",
+    "dropOffLocation": "Brunswick Repair Café",
+    "accepted": true,
+    "carbonSavingKg": 5.0
+  },
+  {
+    "id": 5,
+    "name": "Hazardous Chemicals / Paint",
+    "category": "Chemical",
+    "dropOffLocation": "Council Hazardous Waste Depot",
+    "accepted": false,
+    "carbonSavingKg": 0.0
+  }
+]
