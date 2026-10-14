@@ -8,6 +8,7 @@ import UnauthorizedView from '../views/UnauthorizedView.vue'
 import FirebaseAuthView from '../views/FirebaseAuthView.vue'
 import DataTablesView from '../views/DataTablesView.vue'
 import MapView from '../views/MapView.vue'
+import ExportView from '../views/ExportView.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -24,6 +25,11 @@ const routes = [
     path: '/map',
     name: 'Map',
     component: MapView
+  },
+  {
+    path: '/export',
+    name: 'Export',
+    component: ExportView
   },
   {
     path: '/tables',

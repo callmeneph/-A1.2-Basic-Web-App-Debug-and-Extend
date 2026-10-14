@@ -21,6 +21,10 @@
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/map">Geolocation Map</router-link>
           </li>
+          <!-- Data Export Link -->
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/export">Data Export</router-link>
+          </li>
           <!-- Interactive Tables Link -->
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/tables">Data Tables</router-link>
