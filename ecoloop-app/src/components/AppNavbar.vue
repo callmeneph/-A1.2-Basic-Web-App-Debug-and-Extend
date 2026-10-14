@@ -25,6 +25,10 @@
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/export">Data Export</router-link>
           </li>
+          <!-- Cloud Email Link -->
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/send-email">Cloud Email</router-link>
+          </li>
           <!-- Interactive Tables Link -->
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/tables">Data Tables</router-link>
