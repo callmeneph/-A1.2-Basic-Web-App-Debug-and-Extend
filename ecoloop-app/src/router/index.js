@@ -10,6 +10,7 @@ import DataTablesView from '../views/DataTablesView.vue'
 import MapView from '../views/MapView.vue'
 import ExportView from '../views/ExportView.vue'
 import EmailView from '../views/EmailView.vue'
+import InnovationView from '../views/InnovationView.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: HomeView },
@@ -21,6 +22,11 @@ const routes = [
     name: 'Reviews',
     component: ReviewsView,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/innovations',
+    name: 'Innovations',
+    component: InnovationView
   },
   {
     path: '/map',

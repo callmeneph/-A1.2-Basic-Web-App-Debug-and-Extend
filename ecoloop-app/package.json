@@ -13,8 +13,13 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.21",
+    "@fullcalendar/daygrid": "^6.1.21",
+    "@fullcalendar/interaction": "^6.1.21",
+    "@fullcalendar/vue3": "^7.1.2",
     "axios": "^1.20.0",
     "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
     "cors": "^2.8.6",
     "express": "^5.3.0",
     "firebase": "^13.0.0",
