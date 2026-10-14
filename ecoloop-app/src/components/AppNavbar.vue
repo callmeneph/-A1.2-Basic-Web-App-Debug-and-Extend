@@ -17,6 +17,10 @@
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/cloud-login">Firebase Auth</router-link>
           </li>
+          <!-- GeoLocation Map Link -->
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/map">Geolocation Map</router-link>
+          </li>
           <!-- Interactive Tables Link -->
           <li class="nav-item">
             <router-link class="nav-link text-white" to="/tables">Data Tables</router-link>
