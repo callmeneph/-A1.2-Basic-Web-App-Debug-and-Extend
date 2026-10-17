@@ -1,18 +1,23 @@
 <template>
-  <div class="container my-5">
-    <div class="row">
+  <div class="container-xxl">
+    <header class="page-head">
+      <span class="eyebrow">Hub reviews</span>
+      <h1>How was your drop-off?</h1>
+      <p>Rate a recycling hub and read what the community has to say.</p>
+    </header>
+    <div class="row g-4">
       <!-- Left Column: Form for submitting reviews -->
-      <div class="col-12 col-lg-5 mb-4">
-        <div class="card shadow-sm border-0">
-          <div class="card-header bg-success text-white">
-            <h2 class="h5 mb-0">⭐ Rate a Recycling Drop-off Hub</h2>
+      <div class="col-12 col-lg-5">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="h5 mb-0">Write a review</h2>
           </div>
           <div class="card-body">
             <div v-if="alertMessage" class="alert alert-warning py-2">{{ alertMessage }}</div>
 
             <form @submit.prevent="submitReview">
               <div class="mb-3">
-                <label for="hubSelect" class="form-label fw-semibold">Select Drop-Off Hub</label>
+                <label for="hubSelect" class="form-label fw-semibold">Drop-off hub</label>
                 <select id="hubSelect" v-model="newReview.hubName" class="form-select">
                   <option>Carlton Soft Plastics Depot</option>
                   <option>Melbourne Central E-Waste Hub</option>
@@ -22,7 +27,7 @@
               </div>
 
               <div class="mb-3">
-                <label for="ratingScore" class="form-label fw-semibold">Rating (1 to 5 Stars)</label>
+                <label for="ratingScore" class="form-label fw-semibold">Rating</label>
                 <select id="ratingScore" v-model.number="newReview.rating" class="form-select">
                   <option :value="5">⭐⭐⭐⭐⭐ (5 - Outstanding)</option>
                   <option :value="4">⭐⭐⭐⭐ (4 - Good)</option>
@@ -33,7 +38,7 @@
               </div>
 
               <div class="mb-3">
-                <label for="comment" class="form-label fw-semibold">Your Review / Comments</label>
+                <label for="comment" class="form-label fw-semibold">Your review</label>
                 <textarea
                   id="comment"
                   v-model.trim="newReview.comment"
@@ -44,7 +49,7 @@
                 ></textarea>
               </div>
 
-              <button type="submit" class="btn btn-success fw-bold w-100">Submit Review</button>
+              <button type="submit" class="btn btn-success w-100">Submit review</button>
             </form>
           </div>
         </div>
@@ -52,29 +57,35 @@
 
       <!-- Right Column: Aggregated Rating Score & Verified Reviews -->
       <div class="col-12 col-lg-7">
-        <div class="card shadow-sm border-0 mb-4">
-          <div class="card-body text-center p-4 bg-light rounded">
-            <h3 class="h6 text-muted text-uppercase mb-1">Community Aggregated Score</h3>
-            <div class="display-4 fw-bold text-success mb-1">
-              {{ averageRating }} <span class="fs-4 text-muted">/ 5.0</span>
+        <div class="card mb-4">
+          <div class="card-body score">
+            <div>
+              <p class="score-label">Community score</p>
+              <div class="score-value">{{ averageRating }}<span>/ 5.0</span></div>
             </div>
-            <p class="text-muted mb-0">Based on <strong>{{ reviews.length }}</strong> verified community ratings</p>
+            <div class="text-sm-end">
+              <div class="score-stars" aria-hidden="true">{{ '★'.repeat(Math.round(Number(averageRating))) }}<span>{{ '★'.repeat(5 - Math.round(Number(averageRating))) }}</span></div>
+              <p class="small text-muted mb-0">Based on <strong class="text-body">{{ reviews.length }}</strong> community ratings</p>
+            </div>
           </div>
         </div>
 
-        <h3 class="h5 fw-bold mb-3">Community Feedback</h3>
-        <div v-if="reviews.length === 0" class="text-muted">No reviews yet. Be the first to leave one!</div>
+        <h3 class="h6 mb-3">Community feedback</h3>
+        <div v-if="reviews.length === 0" class="text-muted small">No reviews yet. Be the first to leave one!</div>
 
         <div class="d-flex flex-column gap-3">
-          <div v-for="rev in reviews" :key="rev.id" class="card shadow-sm border-0">
+          <div v-for="rev in reviews" :key="rev.id" class="card">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <h4 class="h6 fw-bold mb-0">{{ rev.hubName }}</h4>
-                <span class="badge bg-warning text-dark">{{ '★'.repeat(rev.rating) }} ({{ rev.rating }}/5)</span>
+                <h4 class="h6 mb-0">{{ rev.hubName }}</h4>
+                <span class="rev-rating">
+                  <span class="rev-stars" aria-hidden="true">{{ '★'.repeat(rev.rating) }}<span>{{ '★'.repeat(5 - rev.rating) }}</span></span>
+                  {{ rev.rating }}/5<span class="visually-hidden"> stars</span>
+                </span>
               </div>
-              <p class="card-text mb-1 text-secondary">{{ rev.comment }}</p>
+              <p class="card-text mb-2">{{ rev.comment }}</p>
               <small class="text-muted">
-                Submitted by: <strong>{{ rev.author }}</strong> ({{ rev.date }})
+                <strong class="text-body">{{ rev.author }}</strong> · {{ rev.date }}
               </small>
             </div>
           </div>
@@ -161,3 +172,14 @@ const submitReview = () => {
   newReview.value.rating = 5
 }
 </script>
+
+<style scoped>
+.score { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1rem; }
+.score-label { font-size: 0.8rem; font-weight: 500; color: var(--eco-muted); margin-bottom: 0.2rem; }
+.score-value { font-size: 2.75rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.score-value span { font-size: 1rem; font-weight: 500; color: var(--eco-muted); letter-spacing: 0; margin-left: 0.35rem; }
+.score-stars { font-size: 1.25rem; color: #e5a000; letter-spacing: 0.1em; }
+.score-stars span, .rev-stars span { color: var(--eco-line-strong); }
+.rev-rating { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--eco-ink-2); white-space: nowrap; }
+.rev-stars { color: #e5a000; font-size: 0.95rem; letter-spacing: 0.08em; }
+</style>

@@ -2,11 +2,15 @@
   <div class="container my-5">
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-5">
-        <div class="card shadow-sm border-0">
-          <div class="card-header bg-primary text-white text-center py-3">
-            <h2 class="h5 mb-0">📝 Register New Account</h2>
-          </div>
-          <div class="card-body p-4">
+        <div class="card auth-card">
+          <div class="card-body">
+            <div class="auth-head">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              </span>
+              <h1 class="h4">Create your account</h1>
+              <p>Join the Eco Loop Melbourne community.</p>
+            </div>
             <div v-if="errorMessage" class="alert alert-danger py-2">{{ errorMessage }}</div>
             <div v-if="successMessage" class="alert alert-success py-2">{{ successMessage }}</div>
 
@@ -17,29 +21,29 @@
               </div>
 
               <div class="mb-3">
-                <label for="regEmail" class="form-label fw-semibold">Email Address</label>
+                <label for="regEmail" class="form-label fw-semibold">Email address</label>
                 <input id="regEmail" v-model.trim="form.email" type="email" class="form-control" required />
               </div>
 
               <div class="mb-3">
-                <label for="regPass" class="form-label fw-semibold">Password (Min 8 chars, 1 number, 1 special char)</label>
+                <label for="regPass" class="form-label fw-semibold">Password <span class="text-muted fw-normal">(min 8 chars, 1 number, 1 special char)</span></label>
                 <input id="regPass" v-model="form.password" type="password" class="form-control" required />
               </div>
 
               <div class="mb-3">
-                <label for="regRole" class="form-label fw-semibold">Account Role</label>
+                <label for="regRole" class="form-label fw-semibold">Account role</label>
                 <select id="regRole" v-model="form.role" class="form-select">
                   <option value="member">Member (Community User)</option>
                   <option value="admin">Admin (NFP Coordinator)</option>
                 </select>
               </div>
 
-              <button type="submit" class="btn btn-primary w-100 fw-bold py-2">Create Account</button>
+              <button type="submit" class="btn btn-success w-100 py-2">Create account</button>
             </form>
 
             <div class="mt-3 text-center">
               <small class="text-muted">
-                Already registered? <router-link to="/login">Login here</router-link>
+                Already registered? <router-link to="/login" class="fw-semibold">Log in</router-link>
               </small>
             </div>
           </div>

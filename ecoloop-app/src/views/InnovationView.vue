@@ -1,35 +1,35 @@
 <!-- src/views/InnovationView.vue -->
 <template>
-  <div class="container my-5">
-    <div class="mb-4">
-      <h1 class="h3 fw-bold text-success">💡 Extended Innovative Features (BR F.1)</h1>
-      <p class="text-muted">
-        Four interactive enhancements designed to improve user experience, operational scheduling, and circular recycling literacy.
-      </p>
-    </div>
+  <div class="container-xxl">
+    <header class="page-head">
+      <span class="eyebrow">Innovations · BR F.1</span>
+      <h1>Extended features</h1>
+      <p>Four interactive enhancements that improve the experience, shift scheduling and recycling know-how.</p>
+    </header>
 
     <!-- INNOVATION 4: REAL-TIME OFFLINE / ONLINE DETECTION & LOCAL STORAGE EXTENSION -->
-    <div class="card shadow-sm border-0 mb-4">
-      <div class="card-body d-flex flex-wrap justify-content-between align-items-center py-3">
-        <div class="d-flex align-items-center">
-          <span class="fs-4 me-2">{{ isOnline ? '🟢' : '🔴' }}</span>
+    <div class="card mb-4">
+      <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-3 py-3">
+        <div class="d-flex align-items-center gap-3">
+          <span class="net-dot" :class="isOnline ? 'is-online' : 'is-offline'" aria-hidden="true"></span>
           <div>
-            <strong>Network Status:</strong>
-            <span :class="isOnline ? 'text-success fw-bold ms-1' : 'text-danger fw-bold ms-1'">
-              {{ isOnline ? 'Online (Real-time synchronization active)' : 'Offline Mode (Local Storage fallback enabled)' }}
+            <span class="innov-num">Innovation 4 · Offline support</span>
+            <span class="fw-semibold">{{ isOnline ? 'Online' : 'Offline mode' }}</span>
+            <span class="text-muted ms-1">
+              · {{ isOnline ? 'Real-time sync active' : 'Local Storage fallback enabled' }}
             </span>
             <div class="small text-muted">
               {{ isOnline ? 'All operations syncing with cloud services.' : 'Changes are cached safely in browser Local Storage until connection returns.' }}
             </div>
           </div>
         </div>
-        <div class="mt-2 mt-md-0">
+        <div>
           <button
             class="btn btn-sm"
             :class="isOnline ? 'btn-outline-danger' : 'btn-outline-success'"
             @click="toggleSimulatedOffline"
           >
-            {{ isOnline ? 'Simulate Disconnection (Go Offline)' : 'Reconnect to Network (Go Online)' }}
+            {{ isOnline ? 'Simulate going offline' : 'Reconnect' }}
           </button>
         </div>
       </div>
@@ -38,10 +38,13 @@
     <div class="row g-4 mb-4">
       <!-- INNOVATION 1: INTERACTIVE WASTE DIVERSION DATA CHART -->
       <div class="col-12 col-xl-6">
-        <div class="card shadow-sm border-0 h-100">
-          <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center">
-            <h2 class="h6 fw-bold mb-0">📊 Innovation 1: Interactive Waste Diversion Chart</h2>
-            <span class="badge bg-light text-success">Live Metrics</span>
+        <div class="card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+              <span class="innov-num">Innovation 1</span>
+              <h2 class="h6 mb-0">Waste diversion chart</h2>
+            </div>
+            <span class="badge bg-success">Live</span>
           </div>
           <div class="card-body">
             <p class="small text-muted mb-3">
@@ -49,20 +52,20 @@
             </p>
 
             <!-- Interactive Custom SVG Chart -->
-            <div class="chart-container p-2 border rounded bg-light">
+            <div class="chart-container">
               <svg viewBox="0 0 500 240" class="w-100" style="overflow: visible;">
                 <!-- Grid Lines -->
-                <line x1="50" y1="20" x2="480" y2="20" stroke="#e0e0e0" stroke-dasharray="3,3" />
-                <line x1="50" y1="70" x2="480" y2="70" stroke="#e0e0e0" stroke-dasharray="3,3" />
-                <line x1="50" y1="120" x2="480" y2="120" stroke="#e0e0e0" stroke-dasharray="3,3" />
-                <line x1="50" y1="170" x2="480" y2="170" stroke="#e0e0e0" stroke-dasharray="3,3" />
-                <line x1="50" y1="190" x2="480" y2="190" stroke="#333" stroke-width="1.5" />
+                <line x1="50" y1="20" x2="480" y2="20" stroke="#e4e7e3" stroke-dasharray="3,3" />
+                <line x1="50" y1="70" x2="480" y2="70" stroke="#e4e7e3" stroke-dasharray="3,3" />
+                <line x1="50" y1="120" x2="480" y2="120" stroke="#e4e7e3" stroke-dasharray="3,3" />
+                <line x1="50" y1="170" x2="480" y2="170" stroke="#e4e7e3" stroke-dasharray="3,3" />
+                <line x1="50" y1="190" x2="480" y2="190" stroke="#d3d8d2" stroke-width="1" />
 
                 <!-- Y-Axis Labels -->
-                <text x="40" y="25" font-size="10" text-anchor="end" fill="#666">2500kg</text>
-                <text x="40" y="75" font-size="10" text-anchor="end" fill="#666">1800kg</text>
-                <text x="40" y="125" font-size="10" text-anchor="end" fill="#666">1200kg</text>
-                <text x="40" y="175" font-size="10" text-anchor="end" fill="#666">600kg</text>
+                <text x="40" y="25" font-size="10" text-anchor="end" fill="#5f6b64">2500kg</text>
+                <text x="40" y="75" font-size="10" text-anchor="end" fill="#5f6b64">1800kg</text>
+                <text x="40" y="125" font-size="10" text-anchor="end" fill="#5f6b64">1200kg</text>
+                <text x="40" y="175" font-size="10" text-anchor="end" fill="#5f6b64">600kg</text>
 
                 <!-- Dynamic Data Bars -->
                 <g v-for="(item, index) in chartData" :key="index">
@@ -83,7 +86,7 @@
                     y="208"
                     font-size="10"
                     text-anchor="middle"
-                    fill="#333"
+                    fill="#3b4640"
                     font-weight="600"
                   >
                     {{ item.category }}
@@ -94,7 +97,7 @@
                     :y="180 - (item.kg / 2500) * 170"
                     font-size="10"
                     text-anchor="middle"
-                    fill="#198754"
+                    fill="#111a15"
                     font-weight="bold"
                   >
                     {{ item.kg }}
@@ -104,11 +107,11 @@
             </div>
 
             <!-- Active Bar Tooltip -->
-            <div class="mt-3 p-2 bg-light border rounded small text-center" v-if="activeBar">
+            <div class="chart-note" v-if="activeBar">
               <strong>{{ activeBar.category }}:</strong> {{ activeBar.kg }} kg diverted | Equivalent to
               <span class="text-success fw-bold">{{ (activeBar.kg * 1.8).toFixed(0) }} kg CO₂e saved</span>!
             </div>
-            <div class="mt-3 p-2 bg-light border rounded small text-center text-muted" v-else>
+            <div class="chart-note text-muted" v-else>
               Hover over any category bar above to view equivalent CO₂e reduction calculations.
             </div>
           </div>
@@ -117,17 +120,17 @@
 
       <!-- INNOVATION 2: GENAI CIRCULAR WASTE ASSISTANT -->
       <div class="col-12 col-xl-6">
-        <div class="card shadow-sm border-0 h-100 d-flex flex-column">
-          <div class="card-header bg-primary text-white py-3">
-            <h2 class="h6 fw-bold mb-0">🤖 Innovation 2: GenAI Circular Waste Assistant</h2>
+        <div class="card h-100 d-flex flex-column">
+          <div class="card-header">
+            <span class="innov-num">Innovation 2</span>
+            <h2 class="h6 mb-0">AI recycling assistant</h2>
           </div>
           <div class="card-body d-flex flex-column">
             <p class="small text-muted mb-2">
               Instant AI assistance for tricky household recycling materials and Melbourne council disposal rules.
             </p>
             <div
-              class="border rounded p-3 mb-3 flex-grow-1 bg-light overflow-auto"
-              style="max-height: 240px; min-height: 200px;"
+              class="chat-window mb-3 flex-grow-1"
             >
               <div
                 v-for="(msg, idx) in chatHistory"
@@ -135,13 +138,12 @@
                 class="mb-3"
                 :class="msg.sender === 'user' ? 'text-end' : 'text-start'"
               >
-                <div class="small fw-semibold text-muted mb-1">
-                  {{ msg.sender === 'user' ? 'You' : 'EcoBot (AI)' }}
+                <div class="chat-who">
+                  {{ msg.sender === 'user' ? 'You' : 'EcoBot' }}
                 </div>
                 <span
-                  class="badge px-3 py-2 text-wrap text-start fw-normal fs-6 shadow-sm"
-                  :class="msg.sender === 'user' ? 'bg-primary text-white' : 'bg-white text-dark border'"
-                  style="max-width: 85%;"
+                  class="bubble"
+                  :class="msg.sender === 'user' ? 'bubble-user' : 'bubble-bot'"
                 >
                   {{ msg.text }}
                 </span>
@@ -149,13 +151,13 @@
             </div>
 
             <!-- Quick Prompt Suggestions -->
-            <div class="d-flex gap-1 mb-2 overflow-auto pb-1">
-              <button class="btn btn-sm btn-outline-secondary text-nowrap" @click="askPreset('batteries')">🔋 Batteries?</button>
-              <button class="btn btn-sm btn-outline-secondary text-nowrap" @click="askPreset('coffee cups')">☕ Coffee Cups?</button>
-              <button class="btn btn-sm btn-outline-secondary text-nowrap" @click="askPreset('soft plastics')">🛍️ Soft Plastics?</button>
+            <div class="d-flex gap-2 mb-2 overflow-auto pb-1">
+              <button class="btn btn-sm btn-outline-secondary chip text-nowrap" @click="askPreset('batteries')">Batteries?</button>
+              <button class="btn btn-sm btn-outline-secondary chip text-nowrap" @click="askPreset('coffee cups')">Coffee cups?</button>
+              <button class="btn btn-sm btn-outline-secondary chip text-nowrap" @click="askPreset('soft plastics')">Soft plastics?</button>
             </div>
 
-            <div class="input-group">
+            <div class="input-group chat-input">
               <input
                 v-model="userQuery"
                 type="text"
@@ -163,7 +165,7 @@
                 placeholder="Type item (e.g. polystyrene, light bulbs)..."
                 @keyup.enter="handleAiQuery"
               />
-              <button class="btn btn-primary fw-bold px-3" @click="handleAiQuery">Ask AI</button>
+              <button class="btn btn-success px-3" @click="handleAiQuery">Ask</button>
             </div>
           </div>
         </div>
@@ -171,10 +173,13 @@
     </div>
 
     <!-- INNOVATION 3: COLLECTION SHIFT BOOKING WITH CONFLICT DETECTION -->
-    <div class="card shadow-sm border-0 mb-4">
-      <div class="card-header bg-dark text-white py-3 d-flex justify-content-between align-items-center">
-        <h2 class="h6 fw-bold mb-0">📅 Innovation 3: Appointment Booking with Conflict Detection</h2>
-        <span class="badge bg-warning text-dark">Constraint Management Enforced</span>
+    <div class="card mt-4">
+      <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+          <span class="innov-num">Innovation 3</span>
+          <h2 class="h6 mb-0">Shift booking with conflict detection</h2>
+        </div>
+        <span class="badge bg-warning">Double-bookings blocked</span>
       </div>
       <div class="card-body p-4">
         <p class="text-muted small">
@@ -183,7 +188,7 @@
 
         <div class="row g-3 mb-4">
           <div class="col-12 col-md-3">
-            <label for="bookHub" class="form-label fw-semibold">Drop-Off Hub</label>
+            <label for="bookHub" class="form-label fw-semibold">Drop-off hub</label>
             <select id="bookHub" v-model="newBooking.hub" class="form-select">
               <option>Carlton North Depot</option>
               <option>Melbourne Central Hub</option>
@@ -195,7 +200,7 @@
             <input id="shiftDate" v-model="newBooking.date" type="date" class="form-control" />
           </div>
           <div class="col-12 col-md-3">
-            <label for="shiftSlot" class="form-label fw-semibold">Time Slot</label>
+            <label for="shiftSlot" class="form-label fw-semibold">Time slot</label>
             <select id="shiftSlot" v-model="newBooking.slot" class="form-select">
               <option value="09:00 - 11:00">Morning (09:00 - 11:00)</option>
               <option value="12:00 - 14:00">Midday (12:00 - 14:00)</option>
@@ -203,8 +208,8 @@
             </select>
           </div>
           <div class="col-12 col-md-3 d-flex align-items-end">
-            <button class="btn btn-success fw-bold w-100" @click="handleBooking">
-              Confirm Booking
+            <button class="btn btn-success w-100" @click="handleBooking">
+              Confirm booking
             </button>
           </div>
         </div>
@@ -214,7 +219,7 @@
         </div>
 
         <!-- Interactive Schedule Timetable -->
-        <h3 class="h6 fw-bold mb-3">Active Operational Shift Schedule</h3>
+        <h3 class="h6 mb-3">Upcoming shifts</h3>
         <div class="table-responsive">
           <table class="table table-bordered table-hover align-middle">
             <thead class="table-light">
@@ -304,11 +309,11 @@ const chartData = computed(() => {
 
   // 4. Return reactive data array for SVG rendering
   return [
-    { category: 'Plastics', kg: Math.round(categoryTotals['Plastics']), color: '#198754' },
-    { category: 'E-Waste', kg: Math.round(categoryTotals['E-Waste']), color: '#0d6efd' },
-    { category: 'Organics', kg: Math.round(categoryTotals['Organics']), color: '#ffc107' },
-    { category: 'Repair', kg: Math.round(categoryTotals['Repair']), color: '#6f42c1' },
-    { category: 'Textiles', kg: Math.round(categoryTotals['Textiles']), color: '#20c997' }
+    { category: 'Plastics', kg: Math.round(categoryTotals['Plastics']), color: '#15803d' },
+    { category: 'E-Waste', kg: Math.round(categoryTotals['E-Waste']), color: '#2563eb' },
+    { category: 'Organics', kg: Math.round(categoryTotals['Organics']), color: '#d97706' },
+    { category: 'Repair', kg: Math.round(categoryTotals['Repair']), color: '#7c3aed' },
+    { category: 'Textiles', kg: Math.round(categoryTotals['Textiles']), color: '#0d9488' }
   ]
 })
 
@@ -432,8 +437,56 @@ const cancelBooking = (id) => {
 </script>
 
 <style scoped>
-.chart-container svg rect:hover {
-  opacity: 0.85;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+.chart-container {
+  padding: 0.75rem;
+  border: 1px solid var(--eco-line);
+  border-radius: 12px;
+  background: var(--eco-surface);
 }
+.chart-container svg text { font-family: inherit; }
+.chart-container svg rect:hover { opacity: 0.85; }
+.chart-note {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  background: var(--eco-surface-2);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.innov-num {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--eco-green);
+  margin-bottom: 0.15rem;
+}
+.net-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.net-dot.is-online { background: #16a34a; box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.15); }
+.net-dot.is-offline { background: var(--eco-red); box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.15); }
+
+.chat-window {
+  border: 1px solid var(--eco-line);
+  border-radius: 12px;
+  background: var(--eco-surface-2);
+  padding: 1rem;
+  overflow-y: auto;
+  min-height: 220px;
+  max-height: 280px;
+}
+.chat-who { font-size: 0.72rem; font-weight: 600; color: var(--eco-muted); margin-bottom: 0.25rem; }
+.bubble {
+  display: inline-block;
+  max-width: 85%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: left;
+}
+.bubble-user { background: var(--eco-green); color: #fff; border-bottom-right-radius: 4px; }
+.bubble-bot { background: var(--eco-surface); color: var(--eco-ink); border: 1px solid var(--eco-line); border-bottom-left-radius: 4px; }
+.chip { border-radius: 999px; }
+.chat-input .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 </style>

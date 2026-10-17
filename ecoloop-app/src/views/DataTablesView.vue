@@ -1,18 +1,17 @@
 <!-- src/views/DataTablesView.vue -->
 <template>
-  <div class="container my-5">
-    <div class="mb-4">
-      <h1 class="h3 fw-bold text-success">📊 Eco Loop Operations Data Tables</h1>
-      <p class="text-muted">
-        Interactive tables supporting multi-column sorting, independent column search, and 10 rows per page pagination.
-      </p>
-    </div>
+  <div class="container-xxl">
+    <header class="page-head">
+      <span class="eyebrow">Operations data</span>
+      <h1>Hubs &amp; volunteer roster</h1>
+      <p>Click a column heading to sort, search each column on its own, and page through 10 rows at a time.</p>
+    </header>
 
     <!-- TABLE 1: RECYCLING HUBS -->
-    <div class="card shadow-sm border-0 mb-5">
-      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center py-3">
-        <h2 class="h5 mb-0">Table 1: Verified Recycling & Drop-Off Hubs</h2>
-        <span class="badge bg-light text-success fw-bold">10 Rows / Page</span>
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="h5 mb-0">Recycling &amp; drop-off hubs</h2>
+        <span class="badge bg-light">10 rows / page</span>
       </div>
       <div class="card-body">
 
@@ -22,24 +21,24 @@
             <input
               v-model="hubsFilter.name"
               type="text"
-              class="form-control form-control-sm"
-              placeholder="Search by Hub Name..."
+              class="form-control form-control-sm col-search"
+              placeholder="Hub name"
             />
           </div>
           <div class="col-12 col-md-4">
             <input
               v-model="hubsFilter.suburb"
               type="text"
-              class="form-control form-control-sm"
-              placeholder="Search by Suburb..."
+              class="form-control form-control-sm col-search"
+              placeholder="Suburb"
             />
           </div>
           <div class="col-12 col-md-4">
             <input
               v-model="hubsFilter.category"
               type="text"
-              class="form-control form-control-sm"
-              placeholder="Search by Category..."
+              class="form-control form-control-sm col-search"
+              placeholder="Category"
             />
           </div>
         </div>
@@ -49,16 +48,16 @@
           <table class="table table-hover table-bordered align-middle">
             <thead class="table-light">
               <tr>
-                <th @click="sortHubs('name')" style="cursor: pointer;">
+                <th @click="sortHubs('name')" class="sortable">
                   Hub Name <span v-if="hubsSortKey === 'name'">{{ hubsSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
-                <th @click="sortHubs('suburb')" style="cursor: pointer;">
+                <th @click="sortHubs('suburb')" class="sortable">
                   Suburb <span v-if="hubsSortKey === 'suburb'">{{ hubsSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
-                <th @click="sortHubs('category')" style="cursor: pointer;">
+                <th @click="sortHubs('category')" class="sortable">
                   Category <span v-if="hubsSortKey === 'category'">{{ hubsSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
-                <th @click="sortHubs('capacityKg')" style="cursor: pointer;">
+                <th @click="sortHubs('capacityKg')" class="sortable">
                   Capacity (kg) <span v-if="hubsSortKey === 'capacityKg'">{{ hubsSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
                 <th>Status</th>
@@ -90,17 +89,17 @@
           </small>
           <div class="btn-group">
             <button
-              class="btn btn-outline-success btn-sm"
+              class="btn btn-outline-secondary btn-sm"
               :disabled="hubsCurrentPage === 1"
               @click="hubsCurrentPage--"
             >
               Previous
             </button>
-            <button class="btn btn-success btn-sm disabled text-white">
+            <button class="btn btn-outline-secondary btn-sm disabled page-indicator">
               Page {{ hubsCurrentPage }} of {{ totalHubPages || 1 }}
             </button>
             <button
-              class="btn btn-outline-success btn-sm"
+              class="btn btn-outline-secondary btn-sm"
               :disabled="hubsCurrentPage >= totalHubPages"
               @click="hubsCurrentPage++"
             >
@@ -112,10 +111,10 @@
     </div>
 
     <!-- TABLE 2: VOLUNTEER & OPERATIONS ROSTER -->
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
-        <h2 class="h5 mb-0">Table 2: Community Operations & Volunteer Roster</h2>
-        <span class="badge bg-light text-primary fw-bold">10 Rows / Page</span>
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="h5 mb-0">Volunteer roster</h2>
+        <span class="badge bg-light">10 rows / page</span>
       </div>
       <div class="card-body">
 
@@ -125,24 +124,24 @@
             <input
               v-model="volFilter.fullName"
               type="text"
-              class="form-control form-control-sm"
-              placeholder="Search by Name..."
+              class="form-control form-control-sm col-search"
+              placeholder="Name"
             />
           </div>
           <div class="col-12 col-md-4">
             <input
               v-model="volFilter.role"
               type="text"
-              class="form-control form-control-sm"
-              placeholder="Search by Role..."
+              class="form-control form-control-sm col-search"
+              placeholder="Role"
             />
           </div>
           <div class="col-12 col-md-4">
             <input
               v-model="volFilter.shiftDay"
               type="text"
-              class="form-control form-control-sm"
-              placeholder="Search by Shift Day..."
+              class="form-control form-control-sm col-search"
+              placeholder="Shift day"
             />
           </div>
         </div>
@@ -152,16 +151,16 @@
           <table class="table table-hover table-bordered align-middle">
             <thead class="table-light">
               <tr>
-                <th @click="sortVol('fullName')" style="cursor: pointer;">
+                <th @click="sortVol('fullName')" class="sortable">
                   Volunteer Name <span v-if="volSortKey === 'fullName'">{{ volSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
-                <th @click="sortVol('role')" style="cursor: pointer;">
+                <th @click="sortVol('role')" class="sortable">
                   Operational Role <span v-if="volSortKey === 'role'">{{ volSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
-                <th @click="sortVol('shiftDay')" style="cursor: pointer;">
+                <th @click="sortVol('shiftDay')" class="sortable">
                   Shift Day <span v-if="volSortKey === 'shiftDay'">{{ volSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
-                <th @click="sortVol('hours')" style="cursor: pointer;">
+                <th @click="sortVol('hours')" class="sortable">
                   Weekly Hours <span v-if="volSortKey === 'hours'">{{ volSortOrder === 1 ? '▲' : '▼' }}</span>
                 </th>
                 <th>Suburb</th>
@@ -189,17 +188,17 @@
           </small>
           <div class="btn-group">
             <button
-              class="btn btn-outline-primary btn-sm"
+              class="btn btn-outline-secondary btn-sm"
               :disabled="volCurrentPage === 1"
               @click="volCurrentPage--"
             >
               Previous
             </button>
-            <button class="btn btn-primary btn-sm disabled text-white">
+            <button class="btn btn-outline-secondary btn-sm disabled page-indicator">
               Page {{ volCurrentPage }} of {{ totalVolPages || 1 }}
             </button>
             <button
-              class="btn btn-outline-primary btn-sm"
+              class="btn btn-outline-secondary btn-sm"
               :disabled="volCurrentPage >= totalVolPages"
               @click="volCurrentPage++"
             >
@@ -291,3 +290,10 @@ const paginatedVol = computed(() => {
   return filteredVol.value.slice(volStartIndex.value, volStartIndex.value + PAGE_SIZE)
 })
 </script>
+
+<style scoped>
+.sortable { cursor: pointer; user-select: none; }
+.sortable:hover { color: var(--eco-ink) !important; }
+.col-search { padding-left: 2.1rem; background: var(--eco-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235f6b64' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 0.7rem center / 15px; }
+.page-indicator { opacity: 1 !important; color: var(--eco-ink-2) !important; }
+</style>

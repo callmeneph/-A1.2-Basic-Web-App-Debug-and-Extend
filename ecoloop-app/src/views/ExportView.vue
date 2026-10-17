@@ -1,34 +1,39 @@
 <!-- src/views/ExportView.vue -->
 <template>
-  <div class="container my-5">
-    <div class="mb-4">
-      <h1 class="h3 fw-bold text-success">📥 Community Data Export Center</h1>
-      <p class="text-muted">
-        Export real-time Eco Loop Melbourne operational datasets into standard CSV spreadsheets and downloadable PDF documents.
-      </p>
-    </div>
+  <div class="container-xxl">
+    <header class="page-head">
+      <span class="eyebrow">Data export</span>
+      <h1>Download the directory</h1>
+      <p>Export the Eco Loop Melbourne drop-off dataset as a CSV spreadsheet or a formatted PDF report.</p>
+    </header>
 
     <!-- Export Action Cards -->
-    <div class="row g-4 mb-5">
+    <div class="row g-4 mb-4">
       <!-- Card 1: CSV Export -->
       <div class="col-12 col-md-6">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-header bg-success text-white py-3">
-            <h2 class="h5 mb-0">📄 Export to CSV (Spreadsheet)</h2>
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center gap-3">
+            <span class="icon-chip" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+            </span>
+            <div>
+              <h2 class="h5 mb-0">CSV spreadsheet</h2>
+              <span class="small text-muted">Excel, Google Sheets, analysis tools</span>
+            </div>
           </div>
           <div class="card-body d-flex flex-column justify-content-between p-4">
             <div>
               <p class="card-text text-muted">
                 Generates comma-separated values compatible with Microsoft Excel, Google Sheets, and data analysis software.
               </p>
-              <ul class="small text-secondary mb-4">
+              <ul class="feature-list mb-4">
                 <li>Complete drop-off locations dataset</li>
                 <li>UTF-8 standard encoding with column headers</li>
                 <li>Instant client-side generation</li>
               </ul>
             </div>
-            <button class="btn btn-success fw-bold py-2" @click="exportToCSV">
-              ⬇️ Download Drop-Off Directory (.CSV)
+            <button class="btn btn-success" @click="exportToCSV">
+              Download directory (.csv)
             </button>
           </div>
         </div>
@@ -36,23 +41,29 @@
 
       <!-- Card 2: PDF Export -->
       <div class="col-12 col-md-6">
-        <div class="card h-100 shadow-sm border-0">
-          <div class="card-header bg-primary text-white py-3">
-            <h2 class="h5 mb-0">📑 Export to PDF (Document)</h2>
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center gap-3">
+            <span class="icon-chip" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+            </span>
+            <div>
+              <h2 class="h5 mb-0">PDF report</h2>
+              <span class="small text-muted">Print-ready for distribution and audits</span>
+            </div>
           </div>
           <div class="card-body d-flex flex-column justify-content-between p-4">
             <div>
               <p class="card-text text-muted">
                 Compiles a formatted official report document ready for printing, offline community distribution, and auditing.
               </p>
-              <ul class="small text-secondary mb-4">
+              <ul class="feature-list mb-4">
                 <li>Formatted summary of active collection hubs</li>
                 <li>Includes official timestamp and NFP credentials</li>
                 <li>Generated using jsPDF client-side engine</li>
               </ul>
             </div>
-            <button class="btn btn-primary fw-bold py-2" @click="exportToPDF">
-              ⬇️ Download Official Directory Report (.PDF)
+            <button class="btn btn-success" @click="exportToPDF">
+              Download report (.pdf)
             </button>
           </div>
         </div>
@@ -60,14 +71,14 @@
     </div>
 
     <!-- Live Preview Table of Exportable Data -->
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
-        <h3 class="h6 mb-0">Dataset Preview: Active Melbourne Recycling Centers</h3>
-        <span class="badge bg-secondary">{{ exportData.length }} Records Ready</span>
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="h6 mb-0">Dataset preview</h3>
+        <span class="badge bg-secondary">{{ exportData.length }} records ready</span>
       </div>
       <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-striped table-hover mb-0 align-middle">
+        <div class="table-responsive border-0 rounded-0">
+          <table class="table table-hover mb-0 align-middle">
             <thead class="table-light">
               <tr>
                 <th>ID</th>
@@ -171,3 +182,15 @@ const exportToPDF = () => {
   doc.save(`EcoLoop_Melbourne_Directory_${new Date().toISOString().slice(0, 10)}.pdf`)
 }
 </script>
+
+<style scoped>
+.feature-list { list-style: none; padding: 0; font-size: 0.9rem; color: var(--eco-ink-2); display: grid; gap: 0.45rem; }
+.feature-list li { display: flex; gap: 0.55rem; align-items: flex-start; }
+.feature-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 16px; height: 16px; margin-top: 2px;
+  border-radius: 50%;
+  background: var(--eco-green-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315803d' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L19 7'/%3E%3C/svg%3E") no-repeat center / 10px;
+}
+</style>

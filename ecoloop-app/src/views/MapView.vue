@@ -1,19 +1,18 @@
 <!-- src/views/MapView.vue -->
 <template>
-  <div class="container my-5">
-    <div class="mb-4">
-      <h1 class="h3 fw-bold text-success">📍 Melbourne Recycling Hubs Geolocation Map</h1>
-      <p class="text-muted">
-        Explore verified circular drop-off centers across Melbourne. Features interactive category filtering and real-time distance route calculation.
-      </p>
-    </div>
+  <div class="container-xxl">
+    <header class="page-head">
+      <span class="eyebrow">Drop-off map</span>
+      <h1>Find a recycling hub near you</h1>
+      <p>Explore verified drop-off centres across Melbourne. Filter by material, then tap a marker to see the distance and route from the CBD.</p>
+    </header>
 
     <!-- Controls Card: Feature 1 (Search & Filter) -->
-    <div class="card shadow-sm border-0 mb-4">
+    <div class="card mb-4">
       <div class="card-body">
         <div class="row g-3 align-items-center">
           <div class="col-12 col-md-5">
-            <label for="filterCategory" class="form-label fw-semibold">Filter by Material Type</label>
+            <label for="filterCategory" class="form-label fw-semibold">Material type</label>
             <select id="filterCategory" v-model="selectedCategory" class="form-select" @change="applyFilters">
               <option value="ALL">All Categories</option>
               <option value="Soft Plastics">Soft Plastics</option>
@@ -23,7 +22,7 @@
             </select>
           </div>
           <div class="col-12 col-md-4">
-            <label for="userLocation" class="form-label fw-semibold">User Origin Reference</label>
+            <label for="userLocation" class="form-label fw-semibold">Starting point</label>
             <input
               id="userLocation"
               type="text"
@@ -34,7 +33,7 @@
           </div>
           <div class="col-12 col-md-3 d-flex align-items-end">
             <button class="btn btn-outline-success w-100" @click="resetMapView">
-              Reset Map View
+              Reset map view
             </button>
           </div>
         </div>
@@ -42,48 +41,51 @@
     </div>
 
     <!-- Map & Route Info Container -->
-    <div class="row">
+    <div class="row g-4">
       <!-- Leaflet Map Container -->
-      <div class="col-12 col-lg-8 mb-4">
-        <div class="card shadow-sm border-0 overflow-hidden">
-          <div id="mapContainer" style="height: 500px; width: 100%;"></div>
+      <div class="col-12 col-lg-8">
+        <div class="card overflow-hidden">
+          <div id="mapContainer" style="height: 520px; width: 100%;"></div>
         </div>
       </div>
 
       <!-- Feature 2: Route & Distance Info Panel -->
       <div class="col-12 col-lg-4">
-        <div class="card shadow-sm border-0 h-100">
-          <div class="card-header bg-success text-white py-3">
-            <h2 class="h6 fw-bold mb-0">🧭 Trip Information & Route Details</h2>
+        <div class="card h-100">
+          <div class="card-header">
+            <h2 class="h6 mb-0">Trip details</h2>
           </div>
           <div class="card-body">
             <div v-if="selectedHub" class="fade show">
-              <h3 class="h5 fw-bold text-success mb-2">{{ selectedHub.name }}</h3>
-              <p class="small text-muted mb-3">📍 {{ selectedHub.address }}</p>
+              <h3 class="h5 mb-1">{{ selectedHub.name }}</h3>
+              <p class="small text-muted mb-3">{{ selectedHub.address }}</p>
 
               <div class="list-group list-group-flush mb-3">
                 <div class="list-group-item px-0 d-flex justify-content-between">
-                  <span class="text-muted">Material:</span>
+                  <span class="text-muted">Material</span>
                   <span class="badge bg-secondary">{{ selectedHub.category }}</span>
                 </div>
                 <div class="list-group-item px-0 d-flex justify-content-between">
-                  <span class="text-muted">Estimated Distance:</span>
+                  <span class="text-muted">Distance</span>
                   <strong class="text-success">{{ calculatedDistance }} km</strong>
                 </div>
                 <div class="list-group-item px-0 d-flex justify-content-between">
-                  <span class="text-muted">Est. Travel Time:</span>
-                  <strong>{{ calculatedTravelTime }} mins (Bicycle/Car)</strong>
+                  <span class="text-muted">Travel time</span>
+                  <strong>{{ calculatedTravelTime }} min <span class="fw-normal text-muted small">bike / car</span></strong>
                 </div>
               </div>
 
-              <div class="alert alert-info py-2 small">
-                Route line drawn between Melbourne CBD and this hub.
-              </div>
+              <p class="small text-muted mb-0">
+                The dashed line on the map shows the route from Melbourne CBD to this hub.
+              </p>
             </div>
 
-            <div v-else class="text-center text-muted py-5">
-              <p class="mb-1">👈 <strong>Click any marker on the map</strong></p>
-              <small>Calculates live transit distance and renders a direct path line.</small>
+            <div v-else class="map-empty">
+              <span class="icon-chip mb-3" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <p class="fw-semibold mb-1">Select a hub on the map</p>
+              <p class="small text-muted mb-0">You'll see the distance, travel time and route from the CBD.</p>
             </div>
           </div>
         </div>
@@ -96,6 +98,15 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+
+// Green pin that matches the site theme (replaces Leaflet's default blue marker)
+const ecoPinIcon = L.divIcon({
+  className: 'eco-pin',
+  html: '<svg viewBox="0 0 32 42" width="30" height="40" aria-hidden="true"><path d="M16 1C7.7 1 1 7.6 1 15.8 1 27 16 41 16 41s15-14 15-25.2C31 7.6 24.3 1 16 1Z" fill="#15803d" stroke="#fff" stroke-width="2"/><circle cx="16" cy="15.5" r="5.5" fill="#fff"/></svg>',
+  iconSize: [30, 40],
+  iconAnchor: [15, 40],
+  popupAnchor: [0, -36]
+})
 
 // Default User Origin: Melbourne Town Hall
 const userOrigin = { lat: -37.8149, lng: 144.9660, name: 'Melbourne Town Hall (CBD)' }
@@ -142,7 +153,9 @@ const renderMarkers = () => {
     : hubsData.filter(h => h.category === selectedCategory.value)
 
   filtered.forEach(hub => {
-    const marker = L.marker([hub.lat, hub.lng])
+    const marker = L.marker([hub.lat, hub.lng], { icon: ecoPinIcon, title: hub.name, alt: hub.name })
+    // Give the custom pin an accessible name for screen readers (WCAG 2.1 AA)
+    marker.on('add', () => marker.getElement()?.setAttribute('aria-label', `${hub.name} drop-off hub`))
     marker.bindPopup(`<strong>${hub.name}</strong><br>${hub.category}<br><small>${hub.address}</small>`)
 
     // Non-trivial Feature 2: Route navigation on marker click
@@ -166,7 +179,7 @@ const selectHub = (hub) => {
   }
   activeRouteLine = L.polyline(
     [[userOrigin.lat, userOrigin.lng], [hub.lat, hub.lng]],
-    { color: '#275FDA', weight: 4, dashArray: '6, 8' }
+    { color: '#111a15', weight: 3, dashArray: '6, 8' }
   ).addTo(map)
 
   map.fitBounds(activeRouteLine.getBounds(), { padding: [40, 40] })
@@ -212,7 +225,7 @@ onMounted(() => {
   // Add distinct marker for User Origin
   const originMarker = L.circleMarker([userOrigin.lat, userOrigin.lng], {
     radius: 9,
-    fillColor: '#198754',
+    fillColor: '#15803d',
     color: '#ffffff',
     weight: 2,
     fillOpacity: 0.9
@@ -233,5 +246,23 @@ onUnmounted(() => {
 <style scoped>
 #mapContainer {
   z-index: 1;
+}
+:deep(.eco-pin) {
+  background: none;
+  border: 0;
+  filter: drop-shadow(0 2px 3px rgba(16, 24, 20, 0.3));
+}
+:deep(.leaflet-popup-content-wrapper) {
+  border-radius: 12px;
+  box-shadow: var(--eco-shadow-lg);
+  font-family: var(--bs-body-font-family);
+}
+:deep(.leaflet-container) { font-family: var(--bs-body-font-family); }
+.map-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 3rem 1rem;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
-  <div class="card shadow-sm border-0 mb-5">
-    <div class="card-header bg-success text-white">
-      <h2 class="h5 mb-0">📝 Register Community Drop-off / Member Log</h2>
+  <div class="card">
+    <div class="card-header">
+      <h2 class="h5 mb-1">Log a community drop-off</h2>
+      <p class="section-sub mb-0">Record what you're bringing in so we can track Melbourne's impact.</p>
     </div>
     <div class="card-body">
       <form @submit.prevent="handleSubmit" novalidate>
@@ -104,7 +105,7 @@
           ></textarea>
           <div v-if="errors.notes" class="invalid-feedback">{{ errors.notes }}</div>
           <small v-if="formData.notes.toLowerCase().includes('volunteer')" class="text-success fw-bold d-block mt-1">
-            🌟 Thank you for offering volunteer support!
+            Thank you for offering volunteer support!
           </small>
         </div>
 
@@ -125,22 +126,25 @@
 
         <!-- Action Buttons -->
         <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-success px-4 fw-bold">Submit Record</button>
-          <button type="button" class="btn btn-outline-secondary" @click="resetForm">Clear Form</button>
+          <button type="submit" class="btn btn-success px-4">Submit record</button>
+          <button type="button" class="btn btn-outline-secondary" @click="resetForm">Clear form</button>
         </div>
       </form>
 
       <!-- Submitted Records Display (Local Storage Synced) -->
       <hr class="my-4" />
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="h6 fw-bold mb-0">📦 Submitted Community Drop-Offs (Stored in LocalStorage)</h3>
+        <div>
+          <h3 class="h6 mb-0">Submitted drop-offs</h3>
+          <p class="section-sub small mb-0">Saved in this browser (localStorage)</p>
+        </div>
         <button v-if="records.length" class="btn btn-sm btn-outline-danger" @click="clearAllRecords">
-          Clear Saved Data
+          Clear saved data
         </button>
       </div>
 
-      <div v-if="records.length === 0" class="text-muted small">
-        No records submitted yet. Fill out the form above to persist data.
+      <div v-if="records.length === 0" class="empty-state">
+        No records submitted yet. Fill out the form above to save one.
       </div>
 
       <div class="row g-3">
@@ -149,15 +153,15 @@
           :key="idx"
           class="col-12 col-sm-6 col-lg-4"
         >
-          <div class="card h-100 bg-light border-0 shadow-sm">
-            <div class="card-body">
-              <h4 class="card-title h6 fw-bold text-success">{{ rec.fullName }}</h4>
-              <p class="card-text small mb-1"><strong>Email:</strong> {{ rec.email }}</p>
-              <p class="card-text small mb-1"><strong>Postcode:</strong> {{ rec.postcode }}</p>
-              <p class="card-text small mb-1"><strong>Material:</strong> {{ rec.materialCategory }} ({{ rec.weight }} kg)</p>
-              <p class="card-text small text-muted"><strong>Notes:</strong> {{ rec.notes }}</p>
+          <article class="record-card">
+            <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+              <h4 class="h6 mb-0">{{ rec.fullName }}</h4>
+              <span class="badge bg-success">{{ rec.weight }} kg</span>
             </div>
-          </div>
+            <p class="record-line">{{ rec.materialCategory }} · {{ rec.postcode }}</p>
+            <p class="record-line">{{ rec.email }}</p>
+            <p class="record-notes">{{ rec.notes }}</p>
+          </article>
         </div>
       </div>
     </div>
@@ -305,3 +309,30 @@ const clearAllRecords = () => {
   localStorage.removeItem('ecoloop_submissions')
 }
 </script>
+
+<style scoped>
+.section-sub { color: var(--eco-muted); font-size: 0.9rem; }
+.empty-state {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--eco-muted);
+  font-size: 0.9rem;
+  border: 1px dashed var(--eco-line-strong);
+  border-radius: 12px;
+}
+.record-card {
+  height: 100%;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--eco-line);
+  border-radius: 12px;
+  background: var(--eco-surface-2);
+}
+.record-line { font-size: 0.85rem; color: var(--eco-ink-2); margin: 0 0 0.15rem; }
+.record-notes {
+  font-size: 0.85rem;
+  color: var(--eco-muted);
+  margin: 0.5rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--eco-line);
+}
+</style>

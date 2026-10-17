@@ -1,18 +1,21 @@
 <template>
-  <div class="container my-5">
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
-        <h2 class="h5 mb-0">🛡️ NFP Operations Admin Dashboard (RBAC Protected)</h2>
-        <span class="badge bg-danger">Role: ADMIN</span>
+  <div class="container-xxl">
+    <header class="page-head d-flex flex-wrap justify-content-between align-items-end gap-3">
+      <div>
+        <span class="eyebrow">Admin · role-based access</span>
+        <h1>Operations dashboard</h1>
+        <p>Welcome, <strong class="text-body">{{ currentUser?.username }}</strong>. You can manage hub listings and moderate reviews.</p>
       </div>
-      <div class="card-body p-4">
-        <div class="alert alert-success">
-          <strong>Access Granted!</strong> Welcome, <strong>{{ currentUser?.username }}</strong>. You are authorized to manage hub listings and review moderation.
-        </div>
-
-        <h3 class="h6 fw-bold mt-4 mb-3">Registered Users in System (Client-Side State)</h3>
+      <span class="badge bg-dark">Role: Admin</span>
+    </header>
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="h6 mb-0">Registered users</h2>
+        <span class="badge bg-light">{{ allUsers.length }} users</span>
+      </div>
+      <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-hover table-bordered align-middle">
+          <table class="table table-hover align-middle">
             <thead class="table-light">
               <tr>
                 <th>Username</th>
@@ -22,11 +25,11 @@
             </thead>
             <tbody>
               <tr v-for="user in allUsers" :key="user.username">
-                <td class="fw-bold">{{ user.username }}</td>
+                <td class="fw-semibold">{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td>
                   <span :class="user.role === 'admin' ? 'badge bg-danger' : 'badge bg-primary'">
-                    {{ user.role.toUpperCase() }}
+                    {{ user.role }}
                   </span>
                 </td>
               </tr>
